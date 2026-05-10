@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SmartAttend – QR Attendance System</title>
+  <link rel="shortcut icon" href="./image/favricon-image.svg" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <meta name="description" content="SmartAttend is a web-based smart attendance system that uses QR code and location verification to record student attendance efficiently and prevent fraud.
+">
+<meta name="keywords" content="student registration and login,QR code-based attendance marking,Real-time time tracking and Easy-to-use interface for students and lecturers">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a class="nav-logo" href="#">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24"><path d="M3 3h7v7H3zm11 0h7v7h-7zM3 14h7v7H3zm14 3a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/></svg>
+    </div>
+    SmartAttend
+  </a>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#how">How it Works</a></li>
+    <li><a href="#roles">For You</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="login.html" class="btn-outline">Log In</a>
+    <a href="register.html" class="btn-solid">Get Started</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge"><span></span> QR + Location Verified Attendance</div>
+      <h1>Smart Attendance,<br><em>Zero Hassle.</em></h1>
+      <p>SmartAttend uses QR code scanning and real-time location verification to automate attendance — no paper, no guessing, no fraud.</p>
+      <div class="hero-actions">
+        <a href="register.html" class="btn-hero primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          Get Started Free
+        </a>
+        <a href="#how" class="btn-hero secondary">See How It Works</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num">99%</div>
+          <div class="stat-label">Accuracy Rate</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-num">5s</div>
+          <div class="stat-label">Mark Attendance</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-num">0</div>
+          <div class="stat-label">Paper Needed</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual-wrap">
+      <div class="float-badge left"><span class="badge-icon">✅</span> Attendance Marked!</div>
+      <div class="float-badge right"><span class="badge-icon">📍</span> Location Verified</div>
+      <div class="phone-mockup hero-visual">
+        <div class="phone-top">
+          <p>Scan QR Code</p>
+          <span>CSC 301 – Morning Session</span>
+        </div>
+        <div class="qr-area">
+          <div class="qr-box">
+            <div class="scan-line"></div>
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <rect x="10" y="10" width="30" height="30" rx="4" fill="none" stroke="#1B7A43" stroke-width="4"/>
+              <rect x="18" y="18" width="14" height="14" rx="2" fill="#1B7A43"/>
+              <rect x="60" y="10" width="30" height="30" rx="4" fill="none" stroke="#1B7A43" stroke-width="4"/>
+              <rect x="68" y="18" width="14" height="14" rx="2" fill="#1B7A43"/>
+              <rect x="10" y="60" width="30" height="30" rx="4" fill="none" stroke="#1B7A43" stroke-width="4"/>
+              <rect x="18" y="68" width="14" height="14" rx="2" fill="#1B7A43"/>
+              <rect x="50" y="50" width="8" height="8" fill="#1B7A43"/>
+              <rect x="62" y="50" width="8" height="8" fill="#1B7A43"/>
+              <rect x="74" y="50" width="8" height="8" fill="#1B7A43"/>
+              <rect x="50" y="62" width="8" height="8" fill="#1B7A43"/>
+              <rect x="74" y="62" width="8" height="8" fill="#1B7A43"/>
+              <rect x="62" y="74" width="8" height="8" fill="#1B7A43"/>
+              <rect x="74" y="74" width="8" height="8" fill="#1B7A43"/>
+            </svg>
+          </div>
+          <div class="location-chip">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            Location Verified
+            <div class="loc-dot"></div>
+          </div>
+        </div>
+        <div class="phone-status">
+          <div class="status-pill"><div class="s-label">Session</div><div class="s-val">LIVE</div></div>
+          <div class="status-pill"><div class="s-label">Students</div><div class="s-val">42</div></div>
+          <div class="status-pill"><div class="s-label">Present</div><div class="s-val">38</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="section-header">
+    <div class="section-tag">Features</div>
+    <h2>Everything You Need for Smart Attendance</h2>
+    <p>Built for modern classrooms — fast, accurate, and fraud-proof.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card highlight">
+      <div class="f-icon">📱</div>
+      <h3>QR Code Scanning</h3>
+      <p>Lecturers generate a unique QR code per session. Students scan it instantly from their phone to mark attendance.</p>
+    </div>
+    <div class="feature-card">
+      <div class="f-icon">📍</div>
+      <h3>Location Verification</h3>
+      <p>GPS-based location check ensures students are physically present in the classroom, not marking remotely.</p>
+    </div>
+    <div class="feature-card">
+      <div class="f-icon">⏱️</div>
+      <h3>Real-Time Tracking</h3>
+      <p>Attendance records update instantly. Lecturers see who's present live during every session.</p>
+    </div>
+    <div class="feature-card">
+      <div class="f-icon">📊</div>
+      <h3>Attendance Reports</h3>
+      <p>View detailed attendance history, percentage stats, and export records anytime.</p>
+    </div>
+    <div class="feature-card">
+      <div class="f-icon">🔐</div>
+      <h3>Secure Login</h3>
+      <p>Role-based access for students and lecturers. Your data stays safe with encrypted sessions.</p>
+    </div>
+    <div class="feature-card">
+      <div class="f-icon">📱</div>
+      <h3>Mobile Friendly</h3>
+      <p>Fully responsive design. Works perfectly on phones, tablets, and desktops — no app needed.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-it-works" id="how">
+  <div class="section-header">
+    <div class="section-tag">Process</div>
+    <h2>How It Works</h2>
+    <p>Three simple steps and attendance is done — for both students and lecturers.</p>
+  </div>
+  <div class="steps">
+    <div class="step active">
+      <div class="step-num">1</div>
+      <h4>Lecturer Starts Session</h4>
+      <p>The lecturer logs in and generates a unique QR code for the class session.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h4>Student Scans QR</h4>
+      <p>Students open SmartAttend on their phone and scan the displayed QR code.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h4>Location is Verified</h4>
+      <p>The system checks the student's GPS location to confirm they're on-site.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h4>Attendance Recorded</h4>
+      <p>Attendance is instantly saved with timestamp, date, and location data.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ROLES -->
+<section class="roles" id="roles">
+  <div class="section-header">
+    <div class="section-tag">Who It's For</div>
+    <h2>Built for Students & Lecturers</h2>
+    <p>Two dedicated dashboards, each designed for your specific role.</p>
+  </div>
+  <div class="roles-grid">
+    <div class="role-card student">
+      <div class="role-card-top">
+        <span class="role-emoji">👨‍🎓</span>
+        <h3>For Students</h3>
+        <p>Mark your attendance in seconds and track your presence across all courses.</p>
+      </div>
+      <div class="role-card-body">
+        <ul class="role-features">
+          <li>Register & login securely</li>
+          <li>Scan QR code to mark attendance</li>
+          <li>View attendance history</li>
+          <li>Check attendance percentage</li>
+          <li>Get notified of missed sessions</li>
+        </ul>
+        <a href="register.html" class="btn-role">Register as Student</a>
+      </div>
+    </div>
+    <div class="role-card lecturer">
+      <div class="role-card-top">
+        <span class="role-emoji">👨‍🏫</span>
+        <h3>For Lecturers</h3>
+        <p>Generate QR codes, start sessions, and manage all student attendance records.</p>
+      </div>
+      <div class="role-card-body">
+        <ul class="role-features">
+          <li>Generate QR code per session</li>
+          <li>Start & end attendance sessions</li>
+          <li>View live attendance list</li>
+          <li>Manage & export records</li>
+          <li>Track time, date & location</li>
+        </ul>
+        <a href="login.html" class="btn-role">Login as Lecturer</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <div class="cta-text">
+    <h2>Ready to Ditch the Register?</h2>
+    <p>Join SmartAttend today and make every attendance session effortless, accurate, and fraud-free.</p>
+  </div>
+  <div class="cta-actions">
+    <a href="register.html" class="btn-white">Create Free Account</a>
+    <a href="#features" class="btn-ghost">Learn More</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a class="nav-logo" href="#">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 3h7v7H3zm11 0h7v7h-7zM3 14h7v7H3zm14 3a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/></svg>
+        </div>
+        SmartAttend
+      </a>
+      <p>Modern QR-based attendance management with real-time location verification.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Product</h4>
+      <ul>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#roles">For Students</a></li>
+        <li><a href="#roles">For Lecturers</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Account</h4>
+      <ul>
+        <li><a href="register.html">Register</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="#">Student Dashboard</a></li>
+        <li><a href="#">Lecturer Dashboard</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">Help Center</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Use</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026<span>SmartAttend</span>. All rights reserved.</p>
+    <p>Built for modern education 🌱</p>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.feature-card, .step, .role-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity .5s ease, transform .5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>

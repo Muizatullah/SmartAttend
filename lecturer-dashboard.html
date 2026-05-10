@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lecturer Dashboard – SmartAttend</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="lecturer-dashboard.css"/>
+</head>
+<body>
+<div class="dashboard">
+
+  <!-- ══ SIDEBAR ══ -->
+  <aside class="sidebar" id="sidebar">
+    <a class="sidebar-logo" href="index.html">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 3h7v7H3zm11 0h7v7h-7zM3 14h7v7H3zm14 3a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/></svg>
+      </div>
+      SmartAttend
+    </a>
+
+    <div class="sidebar-user">
+      <div class="user-avatar">DA</div>
+      <div>
+        <div class="user-name">Dr. Adeyemi</div>
+        <div class="user-role">👨‍🏫 Lecturer</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-label">Main</div>
+      <button class="nav-item active" onclick="showPanel('overview', this)">
+        <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+        Overview
+      </button>
+      <button class="nav-item" onclick="showPanel('generate', this)">
+        <svg viewBox="0 0 24 24"><path d="M9.5 6.5v3h-3v-3h3M11 5H5v6h6V5zm-1.5 9.5v3h-3v-3h3M11 13H5v6h6v-6zm6.5-6.5v3h-3v-3h3M19 5h-6v6h6V5zm-6 8h1.5v1.5H13V13zm1.5 1.5H16V16h-1.5v-1.5zM16 13h1.5v1.5H16V13zm-3 3h1.5v1.5H13V16zm1.5 1.5H16V19h-1.5v-1.5zM16 16h1.5v1.5H16V16zm1.5-1.5H19V16h-1.5v-1.5zm0 3H19V19h-1.5v-1.5z"/></svg>
+        Generate QR Code
+      </button>
+      <button class="nav-item" onclick="showPanel('live', this)">
+        <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        Live Attendance
+        <span class="nav-badge" id="liveBadge">0</span>
+      </button>
+      <button class="nav-item" onclick="showPanel('records', this)">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+        Manage Records
+      </button>
+
+      <div class="nav-label">Account</div>
+      <button class="nav-item" onclick="showPanel('profile', this)">
+        <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+        My Profile
+      </button>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <button class="nav-item" onclick="logout()">
+        <svg viewBox="0 0 24 24"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5-5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
+        Logout
+      </button>
+    </div>
+  </aside>
+
+  <!-- ══ MAIN ══ -->
+  <main class="main">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div class="topbar-left">
+        <h1 id="pageTitle">Overview</h1>
+        <p id="pageSubtitle">Good morning, Dr. Adeyemi! Here's today's summary.</p>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-date" id="topbarDate">—</div>
+        <div class="session-pill inactive" id="sessionPill">
+          <span class="dot"></span>
+          <span id="sessionPillText">No Active Session</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-content">
+
+      <!-- ══ OVERVIEW ══ -->
+      <div class="panel active" id="panel-overview">
+
+        <div class="stats-grid">
+          <div class="stat-card blue">
+            <div class="stat-top">
+              <div class="stat-icon">👨‍🎓</div>
+              <span class="stat-trend up">+5</span>
+            </div>
+            <h3>128</h3>
+            <p>Total Students</p>
+          </div>
+          <div class="stat-card green">
+            <div class="stat-top">
+              <div class="stat-icon">📋</div>
+              <span class="stat-trend up">+2</span>
+            </div>
+            <h3>24</h3>
+            <p>Sessions Held</p>
+          </div>
+          <div class="stat-card yellow">
+            <div class="stat-top">
+              <div class="stat-icon">✅</div>
+            </div>
+            <h3 id="overviewPresent">0</h3>
+            <p>Present Today</p>
+          </div>
+          <div class="stat-card red">
+            <div class="stat-top">
+              <div class="stat-icon">❌</div>
+            </div>
+            <h3 id="overviewAbsent">0</h3>
+            <p>Absent Today</p>
+          </div>
+        </div>
+
+        <div class="content-grid">
+
+          <!-- Recent sessions -->
+          <div class="card" style="flex:1 1 340px;">
+            <div class="card-header">
+              <h3>Recent Sessions</h3>
+              <a onclick="showPanel('records', document.querySelectorAll('.nav-item')[3])">View all</a>
+            </div>
+            <div style="padding:0 22px 18px; display:flex; flex-direction:column; gap:12px;">
+              <div class="student-row">
+                <div class="stu-avatar" style="background:#3b82f6;">C3</div>
+                <div class="stu-info">
+                  <div class="stu-name">CSC 301 – Morning</div>
+                  <div class="stu-meta">08 May 2025 • 08:00 AM</div>
+                </div>
+                <span class="badge present">38/42</span>
+              </div>
+              <div class="student-row">
+                <div class="stu-avatar" style="background:#8b5cf6;">D2</div>
+                <div class="stu-info">
+                  <div class="stu-name">DBS 202 – Lab</div>
+                  <div class="stu-meta">07 May 2025 • 10:00 AM</div>
+                </div>
+                <span class="badge present">30/35</span>
+              </div>
+              <div class="student-row">
+                <div class="stu-avatar" style="background:#f6851f;">C3</div>
+                <div class="stu-info">
+                  <div class="stu-name">CSC 301 – Afternoon</div>
+                  <div class="stu-meta">06 May 2025 • 02:00 PM</div>
+                </div>
+                <span class="badge late">28/42</span>
+              </div>
+              <div class="student-row">
+                <div class="stu-avatar" style="background:#e53e3e;">S3</div>
+                <div class="stu-info">
+                  <div class="stu-name">SEN 301 – Morning</div>
+                  <div class="stu-meta">05 May 2025 • 08:00 AM</div>
+                </div>
+                <span class="badge absent">20/40</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick actions -->
+          <div class="card" style="flex:1 1 260px; padding:26px;">
+            <h3 style="font-family:'Syne',sans-serif;font-weight:700;font-size:.98rem;margin-bottom:18px;">Quick Actions</h3>
+            <div style="display:flex;flex-direction:column;gap:12px;">
+              <button class="btn-generate" onclick="showPanel('generate', document.querySelectorAll('.nav-item')[1])">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M9.5 6.5v3h-3v-3h3M11 5H5v6h6V5zm-1.5 9.5v3h-3v-3h3M11 13H5v6h6v-6zm6.5-6.5v3h-3v-3h3M19 5h-6v6h6V5z"/></svg>
+                Generate New QR Code
+              </button>
+              <button onclick="showPanel('live', document.querySelectorAll('.nav-item')[2])"
+                style="width:100%;padding:12px;background:var(--green-pale);color:var(--green-dark);border:1.5px solid var(--green-light);border-radius:9px;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;transition:all .2s;">
+                👥 View Live Attendance
+              </button>
+              <button onclick="showPanel('records', document.querySelectorAll('.nav-item')[3])"
+                style="width:100%;padding:12px;background:var(--green-pale);color:var(--green-dark);border:1.5px solid var(--green-light);border-radius:9px;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;transition:all .2s;">
+                📊 Manage Records
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ══ GENERATE QR ══ -->
+      <div class="panel" id="panel-generate">
+        <div class="qr-panel-wrap">
+          <div class="qr-top-row">
+
+            <!-- Setup form -->
+            <div class="qr-setup-card">
+              <h3>⚙️ Session Setup</h3>
+              <div class="qr-form">
+                <div class="form-group">
+                  <label>Course</label>
+                  <select id="qrCourse">
+                    <option value="CSC 301">CSC 301 – Computer Science</option>
+                    <option value="DBS 202">DBS 202 – Database Systems</option>
+                    <option value="SEN 301">SEN 301 – Software Engineering</option>
+                    <option value="OPS 201">OPS 201 – Operating Systems</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Session Type</label>
+                  <select id="qrType">
+                    <option>Morning Lecture</option>
+                    <option>Afternoon Lecture</option>
+                    <option>Lab Session</option>
+                    <option>Tutorial</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Venue</label>
+                  <input type="text" id="qrVenue" placeholder="e.g. LT Hall A" value="LT Hall A"/>
+                </div>
+                <div class="form-group">
+                  <label>QR Expires In (minutes)</label>
+                  <select id="qrExpiry">
+                    <option value="5">5 minutes</option>
+                    <option value="10" selected>10 minutes</option>
+                    <option value="15">15 minutes</option>
+                    <option value="30">30 minutes</option>
+                  </select>
+                </div>
+                <button class="btn-generate" id="genBtn" onclick="generateQR()">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M9.5 6.5v3h-3v-3h3M11 5H5v6h6V5zm-1.5 9.5v3h-3v-3h3M11 13H5v6h6v-6zm6.5-6.5v3h-3v-3h3M19 5h-6v6h6V5z"/></svg>
+                  Start Session & Generate QR
+                </button>
+                <button class="btn-end" id="endBtn" style="display:none" onclick="endSession()">
+                  ⏹ End Session
+                </button>
+              </div>
+            </div>
+
+            <!-- QR display -->
+            <div class="qr-display-card">
+              <h3>📱 QR Code</h3>
+              <div class="qr-placeholder" id="qrPlaceholder">
+                <svg viewBox="0 0 24 24"><path d="M9.5 6.5v3h-3v-3h3M11 5H5v6h6V5zm-1.5 9.5v3h-3v-3h3M11 13H5v6h6v-6zm6.5-6.5v3h-3v-3h3M19 5h-6v6h6V5z"/></svg>
+                <p>Generate a session<br>to see the QR code</p>
+              </div>
+              <div class="qr-code-box" id="qrCodeBox">
+                <!-- SVG QR drawn by JS -->
+              </div>
+              <div class="qr-timer" id="qrTimer" style="display:none">⏱ 10:00 remaining</div>
+              <div class="qr-meta" id="qrMeta" style="display:none"></div>
+            </div>
+          </div>
+
+          <!-- Live count during session -->
+          <div class="card live-card" id="liveCardInQR" style="display:none">
+            <div class="live-header-row">
+              <h3>🟢 Live – Students Checked In</h3>
+              <div class="live-count">
+                <div class="live-count-item"><div class="live-count-dot" style="background:#1B7A43"></div><span id="presentCount">0 Present</span></div>
+                <div class="live-count-item"><div class="live-count-dot" style="background:#e53e3e"></div><span id="absentCount">0 Absent</span></div>
+              </div>
+            </div>
+            <div class="student-list" id="liveStudentList">
+              <div style="text-align:center;padding:20px;color:var(--text-light);font-size:.9rem;">
+                Waiting for students to scan...
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ LIVE ATTENDANCE ══ -->
+      <div class="panel" id="panel-live">
+        <div class="card live-card" style="margin-bottom:20px;">
+          <div class="live-header-row">
+            <h3>🟢 Live Attendance Feed</h3>
+            <div class="live-count">
+              <div class="live-count-item"><div class="live-count-dot" style="background:#1B7A43"></div><span id="livePresent">0 Present</span></div>
+              <div class="live-count-item"><div class="live-count-dot" style="background:#e53e3e"></div><span id="liveAbsent">0 Absent</span></div>
+              <div class="live-count-item"><div class="live-count-dot" style="background:#f6ad55"></div><span id="liveLate">0 Late</span></div>
+            </div>
+          </div>
+          <div class="student-list" id="fullLiveList">
+            <div style="text-align:center;padding:30px;color:var(--text-light);">
+              No active session. <a onclick="showPanel('generate', document.querySelectorAll('.nav-item')[1])" style="color:var(--green-main);cursor:pointer;font-weight:600;">Generate a QR code</a> to start one.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ RECORDS ══ -->
+      <div class="panel" id="panel-records">
+        <div class="card records-card">
+          <div class="card-header" style="padding:18px 22px 10px;">
+            <h3>All Attendance Records</h3>
+          </div>
+          <div class="table-toolbar">
+            <div class="search-wrap">
+              <input type="text" placeholder="Search student name or matric..." oninput="searchRecords(this.value)" id="searchInput"/>
+              <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+            </div>
+            <select class="filter-select" onchange="filterRecords(this.value)" id="courseFilter">
+              <option value="all">All Courses</option>
+              <option value="CSC 301">CSC 301</option>
+              <option value="DBS 202">DBS 202</option>
+              <option value="SEN 301">SEN 301</option>
+              <option value="OPS 201">OPS 201</option>
+            </select>
+            <select class="filter-select" onchange="filterStatus(this.value)" id="statusFilter">
+              <option value="all">All Status</option>
+              <option value="present">Present</option>
+              <option value="absent">Absent</option>
+              <option value="late">Late</option>
+            </select>
+            <button class="btn-export" onclick="exportCSV()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+              Export CSV
+            </button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Student Name</th>
+                  <th>Matric No.</th>
+                  <th>Course</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Location</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="recordsBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ PROFILE ══ -->
+      <div class="panel" id="panel-profile">
+        <div class="profile-wrap">
+          <div class="profile-header-card">
+            <div class="profile-avatar-lg">DA</div>
+            <div class="profile-meta">
+              <h2>Dr. Adeyemi</h2>
+              <p>Computer Science Department</p>
+            </div>
+            <span class="profile-badge">👨‍🏫 Lecturer</span>
+          </div>
+          <div class="profile-info-card">
+            <h3>Personal Information</h3>
+            <div class="info-grid">
+              <div class="info-row"><span class="info-label">Full Name</span><span class="info-value">Dr. Adeyemi Babatunde</span></div>
+              <div class="info-row"><span class="info-label">Email</span><span class="info-value">adeyemi@university.edu</span></div>
+              <div class="info-row"><span class="info-label">Staff ID</span><span class="info-value">STAFF/CSC/2019/004</span></div>
+              <div class="info-row"><span class="info-label">Department</span><span class="info-value">Computer Science</span></div>
+              <div class="info-row"><span class="info-label">Phone</span><span class="info-value">+234 803 456 7890</span></div>
+              <div class="info-row"><span class="info-label">Courses</span><span class="info-value">CSC 301, DBS 202, SEN 301</span></div>
+              <div class="info-row"><span class="info-label">Sessions</span><span class="info-value" style="color:var(--green-main);font-weight:700;">24 sessions held</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- page-content -->
+  </main>
+</div>
+
+<script>
+  /* ── DATE ── */
+  const now = new Date();
+  document.getElementById('topbarDate').textContent =
+    now.toLocaleDateString('en-GB', { weekday:'short', day:'numeric', month:'short', year:'numeric' });
+
+  /* ── PANEL SWITCH ── */
+  const titles = {
+    overview: ['Overview',       'Good morning, Dr. Adeyemi! Here\'s today\'s summary.'],
+    generate: ['Generate QR Code','Set up a session and generate your attendance QR code.'],
+    live:     ['Live Attendance', 'Real-time feed of students who have marked attendance.'],
+    records:  ['Manage Records',  'View, search, filter and export all attendance records.'],
+    profile:  ['My Profile',      'Your personal and professional information.'],
+  };
+
+  function showPanel(name, btn) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.getElementById('panel-' + name).classList.add('active');
+    if (btn) btn.classList.add('active');
+    document.getElementById('pageTitle').textContent    = titles[name][0];
+    document.getElementById('pageSubtitle').textContent = titles[name][1];
+    if (name === 'records') buildRecords(allRecords);
+    if (name === 'live') refreshLivePanel();
+  }
+
+  /* ── RECORDS DATA ── */
+  const allRecords = [
+    { name:'John Doe',      matric:'CSC/2021/001', course:'CSC 301', date:'09 May 2025', time:'08:04 AM', location:'LT Hall A',  status:'present' },
+    { name:'Amara Osei',    matric:'CSC/2021/002', course:'CSC 301', date:'09 May 2025', time:'08:06 AM', location:'LT Hall A',  status:'present' },
+    { name:'Emeka Nwosu',   matric:'CSC/2021/003', course:'CSC 301', date:'09 May 2025', time:'08:15 AM', location:'LT Hall A',  status:'late'    },
+    { name:'Fatima Bello',  matric:'CSC/2021/004', course:'CSC 301', date:'09 May 2025', time:'—',        location:'—',          status:'absent'  },
+    { name:'Kofi Mensah',   matric:'DBS/2021/001', course:'DBS 202', date:'08 May 2025', time:'10:02 AM', location:'Lab 2',      status:'present' },
+    { name:'Ngozi Eze',     matric:'DBS/2021/002', course:'DBS 202', date:'08 May 2025', time:'10:08 AM', location:'Lab 2',      status:'present' },
+    { name:'Tunde Alade',   matric:'DBS/2021/003', course:'DBS 202', date:'08 May 2025', time:'—',        location:'—',          status:'absent'  },
+    { name:'Chidi Okafor',  matric:'SEN/2021/001', course:'SEN 301', date:'07 May 2025', time:'12:01 PM', location:'Room 105',   status:'present' },
+    { name:'Zainab Musa',   matric:'SEN/2021/002', course:'SEN 301', date:'07 May 2025', time:'12:18 PM', location:'Room 105',   status:'late'    },
+    { name:'Adaeze Nkem',   matric:'OPS/2021/001', course:'OPS 201', date:'07 May 2025', time:'02:03 PM', location:'LT Hall B',  status:'present' },
+    { name:'Yusuf Garba',   matric:'OPS/2021/002', course:'OPS 201', date:'07 May 2025', time:'—',        location:'—',          status:'absent'  },
+    { name:'Blessing Udo',  matric:'CSC/2021/005', course:'CSC 301', date:'06 May 2025', time:'08:02 AM', location:'LT Hall A',  status:'present' },
+  ];
+
+  let currentRecords = [...allRecords];
+
+  function buildRecords(data) {
+    document.getElementById('recordsBody').innerHTML = data.map(r => `
+      <tr>
+        <td>${r.name}</td>
+        <td>${r.matric}</td>
+        <td>${r.course}</td>
+        <td>${r.date}</td>
+        <td>${r.time}</td>
+        <td>${r.location !== '—' ? '📍 ' + r.location : '—'}</td>
+        <td><span class="badge ${r.status}">${r.status.charAt(0).toUpperCase()+r.status.slice(1)}</span></td>
+      </tr>`).join('');
+  }
+
+  function applyFilters() {
+    const search = document.getElementById('searchInput')?.value.toLowerCase() || '';
+    const course = document.getElementById('courseFilter')?.value || 'all';
+    const status = document.getElementById('statusFilter')?.value || 'all';
+    let data = allRecords.filter(r => {
+      const matchSearch = r.name.toLowerCase().includes(search) || r.matric.toLowerCase().includes(search);
+      const matchCourse = course === 'all' || r.course === course;
+      const matchStatus = status === 'all' || r.status === status;
+      return matchSearch && matchCourse && matchStatus;
+    });
+    buildRecords(data);
+  }
+
+  function searchRecords(val) { applyFilters(); }
+  function filterRecords(val) { applyFilters(); }
+  function filterStatus(val)  { applyFilters(); }
+
+  function exportCSV() {
+    const rows = [['Name','Matric','Course','Date','Time','Location','Status']];
+    allRecords.forEach(r => rows.push([r.name,r.matric,r.course,r.date,r.time,r.location,r.status]));
+    const csv = rows.map(r => r.join(',')).join('\n');
+    const a = document.createElement('a');
+    a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+    a.download = 'smartattend-records.csv';
+    a.click();
+  }
+
+  /* ── QR GENERATOR ── */
+  let sessionActive = false;
+  let timerInterval = null;
+  let liveStudents  = [];
+  let timeLeft = 600;
+
+  const demoStudents = [
+    { name:'John Doe',     matric:'CSC/2021/001', time:'08:04 AM', status:'present' },
+    { name:'Amara Osei',   matric:'CSC/2021/002', time:'08:06 AM', status:'present' },
+    { name:'Emeka Nwosu',  matric:'CSC/2021/003', time:'08:15 AM', status:'late'    },
+    { name:'Fatima Bello', matric:'CSC/2021/004', time:'—',        status:'absent'  },
+    { name:'Kofi Mensah',  matric:'CSC/2021/005', time:'08:07 AM', status:'present' },
+  ];
+
+  function generateQR() {
+    if (sessionActive) return;
+    sessionActive = true;
+
+    const course  = document.getElementById('qrCourse').value;
+    const type    = document.getElementById('qrType').value;
+    const venue   = document.getElementById('qrVenue').value;
+    const expiry  = parseInt(document.getElementById('qrExpiry').value);
+    timeLeft = expiry * 60;
+
+    // Update UI
+    document.getElementById('qrPlaceholder').style.display = 'none';
+    document.getElementById('qrCodeBox').style.display = 'block';
+    document.getElementById('qrTimer').style.display = 'inline-block';
+    document.getElementById('qrMeta').style.display = 'block';
+    document.getElementById('endBtn').style.display = 'block';
+    document.getElementById('genBtn').disabled = true;
+    document.getElementById('liveCardInQR').style.display = 'block';
+
+    document.getElementById('qrMeta').innerHTML =
+      `<strong>${course}</strong> — ${type}<br>📍 ${venue} • ${new Date().toLocaleTimeString()}`;
+
+    // Draw QR SVG
+    document.getElementById('qrCodeBox').innerHTML = buildQRSVG();
+
+    // Update session pill
+    const pill = document.getElementById('sessionPill');
+    pill.className = 'session-pill';
+    document.getElementById('sessionPillText').textContent = course + ' – LIVE';
+
+    // Timer
+    updateTimer();
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      updateTimer();
+      if (timeLeft <= 0) endSession();
+    }, 1000);
+
+    // Simulate students arriving
+    liveStudents = [];
+    demoStudents.forEach((s, i) => {
+      setTimeout(() => {
+        if (!sessionActive) return;
+        liveStudents.push(s);
+        updateLiveList();
+        updateLiveCounts();
+        document.getElementById('overviewPresent').textContent =
+          liveStudents.filter(x => x.status === 'present' || x.status === 'late').length;
+        document.getElementById('overviewAbsent').textContent =
+          liveStudents.filter(x => x.status === 'absent').length;
+      }, (i + 1) * 2500);
+    });
+  }
+
+  function updateTimer() {
+    const m = String(Math.floor(timeLeft / 60)).padStart(2,'0');
+    const s = String(timeLeft % 60).padStart(2,'0');
+    document.getElementById('qrTimer').textContent = `⏱ ${m}:${s} remaining`;
+  }
+
+  function updateLiveList() {
+    const list = document.getElementById('liveStudentList');
+    list.innerHTML = liveStudents.map(s => `
+      <div class="student-row">
+        <div class="stu-avatar">${s.name.split(' ').map(x=>x[0]).join('')}</div>
+        <div class="stu-info">
+          <div class="stu-name">${s.name}</div>
+          <div class="stu-meta">${s.matric}</div>
+        </div>
+        <span class="stu-time">${s.time}</span>
+        <span class="stu-status ${s.status}">${s.status.charAt(0).toUpperCase()+s.status.slice(1)}</span>
+      </div>`).join('');
+    const p = liveStudents.filter(x=>x.status==='present'||x.status==='late').length;
+    const a = liveStudents.filter(x=>x.status==='absent').length;
+    document.getElementById('presentCount').textContent = p + ' Present';
+    document.getElementById('absentCount').textContent  = a + ' Absent';
+    document.getElementById('liveBadge').textContent    = p;
+  }
+
+  function updateLiveCounts() {
+    const p = liveStudents.filter(x=>x.status==='present').length;
+    const a = liveStudents.filter(x=>x.status==='absent').length;
+    const l = liveStudents.filter(x=>x.status==='late').length;
+    document.getElementById('livePresent').textContent = p + ' Present';
+    document.getElementById('liveAbsent').textContent  = a + ' Absent';
+    document.getElementById('liveLate').textContent    = l + ' Late';
+  }
+
+  function refreshLivePanel() {
+    const list = document.getElementById('fullLiveList');
+    if (!sessionActive || liveStudents.length === 0) {
+      list.innerHTML = `<div style="text-align:center;padding:30px;color:var(--text-light);">No active session. <a onclick="showPanel('generate', document.querySelectorAll('.nav-item')[1])" style="color:var(--green-main);cursor:pointer;font-weight:600;">Generate a QR code</a> to start one.</div>`;
+      return;
+    }
+    list.innerHTML = liveStudents.map(s => `
+      <div class="student-row">
+        <div class="stu-avatar">${s.name.split(' ').map(x=>x[0]).join('')}</div>
+        <div class="stu-info">
+          <div class="stu-name">${s.name}</div>
+          <div class="stu-meta">${s.matric}</div>
+        </div>
+        <span class="stu-time">${s.time}</span>
+        <span class="stu-status ${s.status}">${s.status.charAt(0).toUpperCase()+s.status.slice(1)}</span>
+      </div>`).join('');
+    updateLiveCounts();
+  }
+
+  function endSession() {
+    sessionActive = false;
+    clearInterval(timerInterval);
+    document.getElementById('qrTimer').textContent = '⏹ Session Ended';
+    document.getElementById('qrTimer').style.background = '#fee2e2';
+    document.getElementById('qrTimer').style.color = '#e53e3e';
+    document.getElementById('endBtn').style.display = 'none';
+    document.getElementById('genBtn').disabled = false;
+    const pill = document.getElementById('sessionPill');
+    pill.className = 'session-pill inactive';
+    document.getElementById('sessionPillText').textContent = 'No Active Session';
+  }
+
+  /* ── QR SVG BUILDER ── */
+  function buildQRSVG() {
+    const size = 200;
+    const cells = 21;
+    const cellSize = size / cells;
+    let rects = '';
+
+    // Simplified static QR pattern (finder patterns + random modules)
+    const pattern = [];
+    for (let r = 0; r < cells; r++) {
+      pattern[r] = [];
+      for (let c = 0; c < cells; c++) {
+        // Finder top-left
+        if (r < 7 && c < 7) { pattern[r][c] = (r===0||r===6||c===0||c===6||(r>=2&&r<=4&&c>=2&&c<=4)); continue; }
+        // Finder top-right
+        if (r < 7 && c >= cells-7) { const cc=c-(cells-7); pattern[r][c]=(r===0||r===6||cc===0||cc===6||(r>=2&&r<=4&&cc>=2&&cc<=4)); continue; }
+        // Finder bottom-left
+        if (r >= cells-7 && c < 7) { const rr=r-(cells-7); pattern[r][c]=(rr===0||rr===6||c===0||c===6||(rr>=2&&rr<=4&&c>=2&&c<=4)); continue; }
+        pattern[r][c] = Math.random() > 0.55;
+      }
+    }
+
+    for (let r = 0; r < cells; r++) {
+      for (let c = 0; c < cells; c++) {
+        if (pattern[r][c]) {
+          rects += `<rect x="${c*cellSize}" y="${r*cellSize}" width="${cellSize}" height="${cellSize}" fill="#0f5c2e"/>`;
+        }
+      }
+    }
+
+    return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg" style="border-radius:10px;background:#f0faf5">${rects}</svg>`;
+  }
+
+  /* ── LOGOUT ── */
+  function logout() {
+    if (confirm('Are you sure you want to logout?')) window.location.href = 'login.html';
+  }
+</script>
+</body>
+</html>

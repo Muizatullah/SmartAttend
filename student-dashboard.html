@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Dashboard – SmartAttend</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="student-dashboard.css"/>
+</head>
+<body>
+
+<div class="dashboard">
+
+  <!-- ══ SIDEBAR ══ -->
+  <aside class="sidebar" id="sidebar">
+    <a class="sidebar-logo" href="index.html">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 3h7v7H3zm11 0h7v7h-7zM3 14h7v7H3zm14 3a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/></svg>
+      </div>
+      SmartAttend
+    </a>
+
+    <div class="sidebar-user">
+      <div class="user-avatar" id="sidebarAvatar">JD</div>
+      <div class="user-info">
+        <div class="user-name" id="sidebarName">John Doe</div>
+        <div class="user-role">👨‍🎓 Student</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <button class="nav-item active" onclick="showPanel('overview', this)">
+        <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+        Overview
+      </button>
+      <button class="nav-item" onclick="showPanel('scanner', this)">
+        <svg viewBox="0 0 24 24"><path d="M9.5 6.5v3h-3v-3h3M11 5H5v6h6V5zm-1.5 9.5v3h-3v-3h3M11 13H5v6h6v-6zm6.5-6.5v3h-3v-3h3M19 5h-6v6h6V5zm-6 8h1.5v1.5H13V13zm1.5 1.5H16V16h-1.5v-1.5zM16 13h1.5v1.5H16V13zm-3 3h1.5v1.5H13V16zm1.5 1.5H16V19h-1.5v-1.5zM16 16h1.5v1.5H16V16zm1.5-1.5H19V16h-1.5v-1.5zm0 3H19V19h-1.5v-1.5z"/></svg>
+        Scan QR Code
+        <span class="nav-badge">GO</span>
+      </button>
+      <button class="nav-item" onclick="showPanel('history', this)">
+        <svg viewBox="0 0 24 24"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.95-2.05L6.64 18.36A8.955 8.955 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>
+        Attendance History
+      </button>
+
+      <div class="nav-section-label">Account</div>
+      <button class="nav-item" onclick="showPanel('profile', this)">
+        <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+        My Profile
+      </button>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <button class="nav-item" onclick="logout()">
+        <svg viewBox="0 0 24 24"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5-5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
+        Logout
+      </button>
+    </div>
+  </aside>
+
+  <!-- ══ MAIN ══ -->
+  <main class="main">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div class="topbar-left">
+        <h1 id="pageTitle">Overview</h1>
+        <p id="pageSubtitle">Welcome back, John! Here's your attendance summary.</p>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-date" id="topbarDate">—</div>
+        <button class="notif-btn">
+          <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+          <span class="notif-dot"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- PAGE CONTENT -->
+    <div class="page-content">
+
+      <!-- ══ OVERVIEW PANEL ══ -->
+      <div class="panel active" id="panel-overview">
+
+        <div class="stats-grid">
+          <div class="stat-card green">
+            <div class="stat-card-top">
+              <div class="stat-icon">📊</div>
+              <span class="stat-trend up">↑ 2%</span>
+            </div>
+            <h3>85%</h3>
+            <p>Overall Attendance</p>
+          </div>
+          <div class="stat-card blue">
+            <div class="stat-card-top">
+              <div class="stat-icon">📚</div>
+              <span class="stat-trend up">+3</span>
+            </div>
+            <h3>40</h3>
+            <p>Total Classes</p>
+          </div>
+          <div class="stat-card yellow">
+            <div class="stat-card-top">
+              <div class="stat-icon">✅</div>
+            </div>
+            <h3>34</h3>
+            <p>Classes Attended</p>
+          </div>
+          <div class="stat-card red">
+            <div class="stat-card-top">
+              <div class="stat-icon">❌</div>
+              <span class="stat-trend down">↓ 1</span>
+            </div>
+            <h3>6</h3>
+            <p>Classes Missed</p>
+          </div>
+        </div>
+
+        <div class="content-grid">
+
+          <!-- Attendance Circle -->
+          <div class="card attendance-card">
+            <div class="card-header">
+              <h3>Attendance Rate</h3>
+              <a href="#" onclick="showPanel('history', document.querySelectorAll('.nav-item')[2])">View all</a>
+            </div>
+            <div class="card-body">
+              <div class="circle-wrap">
+                <div class="circle-chart">
+                  <svg viewBox="0 0 140 140" width="150" height="150">
+                    <circle class="circle-bg" cx="70" cy="70" r="56"/>
+                    <circle class="circle-fill" id="circleArc" cx="70" cy="70" r="56"/>
+                  </svg>
+                  <div class="circle-text">
+                    <span class="pct">85%</span>
+                    <span class="pct-label">Present</span>
+                  </div>
+                </div>
+                <p>You need 75% to pass. You're doing great! 🎉</p>
+              </div>
+              <div class="att-legend">
+                <div class="legend-row">
+                  <div class="legend-left"><div class="legend-dot" style="background:#1B7A43"></div>Present</div>
+                  <span class="legend-val">34 classes</span>
+                </div>
+                <div class="legend-row">
+                  <div class="legend-left"><div class="legend-dot" style="background:#e53e3e"></div>Absent</div>
+                  <span class="legend-val">6 classes</span>
+                </div>
+                <div class="legend-row">
+                  <div class="legend-left"><div class="legend-dot" style="background:#f6ad55"></div>Late</div>
+                  <span class="legend-val">2 classes</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Upcoming Classes -->
+          <div class="card upcoming-card">
+            <div class="card-header">
+              <h3>Today's Classes</h3>
+              <a href="#">Full schedule</a>
+            </div>
+            <div class="card-body">
+              <div class="class-item">
+                <div class="class-time-block">
+                  <div class="time">8:00</div>
+                  <div class="ampm">AM</div>
+                </div>
+                <div class="class-info">
+                  <div class="class-name">Computer Science 301</div>
+                  <div class="class-meta">📍 LT Hall A • Dr. Adeyemi</div>
+                </div>
+                <span class="class-status live">● LIVE</span>
+              </div>
+              <div class="class-item">
+                <div class="class-time-block">
+                  <div class="time">10:00</div>
+                  <div class="ampm">AM</div>
+                </div>
+                <div class="class-info">
+                  <div class="class-name">Database Systems</div>
+                  <div class="class-meta">📍 Lab 2 • Dr. Okonkwo</div>
+                </div>
+                <span class="class-status soon">Soon</span>
+              </div>
+              <div class="class-item">
+                <div class="class-time-block">
+                  <div class="time">12:00</div>
+                  <div class="ampm">PM</div>
+                </div>
+                <div class="class-info">
+                  <div class="class-name">Software Engineering</div>
+                  <div class="class-meta">📍 Room 105 • Prof. Eze</div>
+                </div>
+                <span class="class-status later">Later</span>
+              </div>
+              <div class="class-item">
+                <div class="class-time-block">
+                  <div class="time">2:00</div>
+                  <div class="ampm">PM</div>
+                </div>
+                <div class="class-info">
+                  <div class="class-name">Operating Systems</div>
+                  <div class="class-meta">📍 LT Hall B • Dr. Ibrahim</div>
+                </div>
+                <span class="class-status later">Later</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ══ SCANNER PANEL ══ -->
+      <div class="panel" id="panel-scanner">
+        <div class="card" style="padding: 32px;">
+          <div class="scanner-wrap">
+            <h2>📱 Scan QR Code</h2>
+            <p>Click the button below to activate your camera and scan the lecturer's QR code to mark your attendance.</p>
+
+            <div class="qr-scanner-box" id="scannerBox" onclick="startScan()">
+              <div class="scan-anim"></div>
+              <div class="scan-icon">📷</div>
+              <div class="scan-label">Tap to start scanning</div>
+            </div>
+
+            <div class="scanner-actions">
+              <button class="btn-scan" id="scanBtn" onclick="startScan()">Start QR Scan</button>
+            </div>
+
+            <div class="scan-result" id="scanResult">
+              <h4 id="scanResultTitle">—</h4>
+              <p id="scanResultMsg">—</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ HISTORY PANEL ══ -->
+      <div class="panel" id="panel-history">
+        <div class="card history-card">
+          <div class="card-header">
+            <h3>Attendance History</h3>
+          </div>
+          <div class="table-filters">
+            <select class="filter-select" onchange="filterTable(this.value)">
+              <option value="all">All Courses</option>
+              <option value="CSC 301">CSC 301</option>
+              <option value="DBS 202">DBS 202</option>
+              <option value="SEN 301">SEN 301</option>
+              <option value="OPS 201">OPS 201</option>
+            </select>
+            <select class="filter-select">
+              <option>All Status</option>
+              <option>Present</option>
+              <option>Absent</option>
+              <option>Late</option>
+            </select>
+          </div>
+          <div class="card-body">
+            <div class="table-wrap">
+              <table id="historyTable">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Course</th>
+                    <th>Lecturer</th>
+                    <th>Time</th>
+                    <th>Location</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="historyBody">
+                  <!-- filled by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ PROFILE PANEL ══ -->
+      <div class="panel" id="panel-profile">
+        <div class="profile-wrap">
+          <div class="profile-header-card">
+            <div class="profile-avatar-lg">JD</div>
+            <div class="profile-meta">
+              <h2>John Doe</h2>
+              <p>CSC/2021/001 • Computer Science</p>
+            </div>
+            <span class="profile-badge">👨‍🎓 Student</span>
+          </div>
+          <div class="profile-info-card">
+            <h3>Personal Information</h3>
+            <div class="info-grid">
+              <div class="info-row">
+                <span class="info-label">Full Name</span>
+                <span class="info-value">John Doe</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Email</span>
+                <span class="info-value">john.doe@university.edu</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Matric No.</span>
+                <span class="info-value">CSC/2021/001</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Department</span>
+                <span class="info-value">Computer Science</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Phone</span>
+                <span class="info-value">+234 800 123 4567</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Level</span>
+                <span class="info-value">300 Level</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Attendance</span>
+                <span class="info-value" style="color:#1B7A43; font-weight:700;">85% (Good Standing)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end page-content -->
+  </main>
+</div>
+
+<script>
+  /* ── DATE ── */
+  const now = new Date();
+  document.getElementById('topbarDate').textContent =
+    now.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+
+  /* ── PANEL SWITCHING ── */
+  const titles = {
+    overview: ['Overview', 'Welcome back, John! Here\'s your attendance summary.'],
+    scanner:  ['Scan QR Code', 'Scan the lecturer\'s QR code to mark your attendance.'],
+    history:  ['Attendance History', 'View all your past attendance records.'],
+    profile:  ['My Profile', 'Manage your personal information.'],
+  };
+
+  function showPanel(name, btn) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.getElementById('panel-' + name).classList.add('active');
+    if (btn) btn.classList.add('active');
+    document.getElementById('pageTitle').textContent = titles[name][0];
+    document.getElementById('pageSubtitle').textContent = titles[name][1];
+    if (name === 'history') buildTable('all');
+  }
+
+  /* ── ATTENDANCE TABLE DATA ── */
+  const attendanceData = [
+    { date: '09 May 2025', course: 'CSC 301', lecturer: 'Dr. Adeyemi',  time: '08:00 AM', location: 'LT Hall A',  status: 'present' },
+    { date: '08 May 2025', course: 'DBS 202', lecturer: 'Dr. Okonkwo',  time: '10:00 AM', location: 'Lab 2',      status: 'present' },
+    { date: '07 May 2025', course: 'SEN 301', lecturer: 'Prof. Eze',    time: '12:00 PM', location: 'Room 105',   status: 'late'    },
+    { date: '07 May 2025', course: 'OPS 201', lecturer: 'Dr. Ibrahim',  time: '02:00 PM', location: 'LT Hall B',  status: 'absent'  },
+    { date: '06 May 2025', course: 'CSC 301', lecturer: 'Dr. Adeyemi',  time: '08:00 AM', location: 'LT Hall A',  status: 'present' },
+    { date: '06 May 2025', course: 'DBS 202', lecturer: 'Dr. Okonkwo',  time: '10:00 AM', location: 'Lab 2',      status: 'absent'  },
+    { date: '05 May 2025', course: 'SEN 301', lecturer: 'Prof. Eze',    time: '12:00 PM', location: 'Room 105',   status: 'present' },
+    { date: '04 May 2025', course: 'CSC 301', lecturer: 'Dr. Adeyemi',  time: '08:00 AM', location: 'LT Hall A',  status: 'present' },
+    { date: '03 May 2025', course: 'OPS 201', lecturer: 'Dr. Ibrahim',  time: '02:00 PM', location: 'LT Hall B',  status: 'present' },
+    { date: '02 May 2025', course: 'DBS 202', lecturer: 'Dr. Okonkwo',  time: '10:00 AM', location: 'Lab 2',      status: 'present' },
+  ];
+
+  function buildTable(filter) {
+    const tbody = document.getElementById('historyBody');
+    const data = filter === 'all' ? attendanceData : attendanceData.filter(r => r.course === filter);
+    tbody.innerHTML = data.map(r => `
+      <tr>
+        <td>${r.date}</td>
+        <td>${r.course}</td>
+        <td>${r.lecturer}</td>
+        <td>${r.time}</td>
+        <td>📍 ${r.location}</td>
+        <td><span class="badge ${r.status}">${r.status.charAt(0).toUpperCase() + r.status.slice(1)}</span></td>
+      </tr>
+    `).join('');
+  }
+
+  function filterTable(val) { buildTable(val); }
+
+  /* ── QR SCANNER SIMULATION ── */
+  let scanning = false;
+  function startScan() {
+    if (scanning) return;
+    scanning = true;
+    const box  = document.getElementById('scannerBox');
+    const btn  = document.getElementById('scanBtn');
+    const result = document.getElementById('scanResult');
+
+    box.classList.add('scanning');
+    box.querySelector('.scan-label').textContent = 'Scanning...';
+    box.querySelector('.scan-icon').textContent = '🔍';
+    btn.textContent = 'Scanning...';
+    btn.disabled = true;
+    result.style.display = 'none';
+
+    // Simulate location check + QR match
+    setTimeout(() => {
+      box.classList.remove('scanning');
+      box.querySelector('.scan-icon').textContent = '✅';
+      box.querySelector('.scan-label').textContent = 'Scan complete!';
+      btn.textContent = 'Scan Again';
+      btn.disabled = false;
+      scanning = false;
+
+      result.className = 'scan-result success';
+      result.style.display = 'block';
+      document.getElementById('scanResultTitle').textContent = '✅ Attendance Marked!';
+      document.getElementById('scanResultMsg').textContent =
+        'CSC 301 — Dr. Adeyemi | ' + new Date().toLocaleTimeString() + ' | 📍 Location verified';
+    }, 3000);
+  }
+
+  /* ── LOGOUT ── */
+  function logout() {
+    if (confirm('Are you sure you want to logout?')) {
+      window.location.href = 'login.html';
+    }
+  }
+
+  /* ── ANIMATE CIRCLE ON LOAD ── */
+  window.addEventListener('load', () => {
+    const circle = document.getElementById('circleArc');
+    const r = 56, total = 2 * Math.PI * r;
+    circle.style.strokeDasharray = total;
+    circle.style.strokeDashoffset = total * (1 - 0.85);
+  });
+</script>
+</body>
+</html>

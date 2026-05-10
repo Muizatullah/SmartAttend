@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register – SmartAttend</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="register.css"/>
+</head>
+<body>
+
+<div class="register-page">
+
+  <!-- LEFT PANEL -->
+  <div class="register-left">
+    <a class="left-logo" href="index.html">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 3h7v7H3zm11 0h7v7h-7zM3 14h7v7H3zm14 3a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/></svg>
+      </div>
+      SmartAttend
+    </a>
+
+    <div class="left-middle">
+      <h2>Join <em>SmartAttend</em> Today</h2>
+      <p>Create your account in 3 quick steps and start marking or managing attendance the smart way.</p>
+      <div class="steps-preview">
+        <div class="step-row active-row" id="sidebar-step-1">
+          <div class="step-dot active" id="dot-1">1</div>
+          <span>Choose Your Role</span>
+        </div>
+        <div class="step-row" id="sidebar-step-2">
+          <div class="step-dot" id="dot-2">2</div>
+          <span>Personal Information</span>
+        </div>
+        <div class="step-row" id="sidebar-step-3">
+          <div class="step-dot" id="dot-3">3</div>
+          <span>Set Your Password</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="left-bottom">
+      Already have an account? <a href="login.html">Log in here</a>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="register-right">
+    <div class="register-box">
+
+      <a class="back-link" href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        Back to Home
+      </a>
+
+      <!-- PROGRESS BAR -->
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width: 33%"></div>
+      </div>
+
+      <!-- ═══ STEP 1 — ROLE ═══ -->
+      <div class="step-panel active" id="panel-1">
+        <div class="step-label">Step 1 of 3</div>
+        <h2>Who are you? 🎓</h2>
+        <p class="subtitle">Select your role so we can set up the right dashboard for you.</p>
+
+        <div class="role-selector">
+          <div class="role-option selected" id="role-student" onclick="selectRole('student')">
+            <span class="role-icon">👨‍🎓</span>
+            <div class="role-name">Student</div>
+            <div class="role-desc">Scan QR & mark attendance</div>
+          </div>
+          <div class="role-option" id="role-lecturer" onclick="selectRole('lecturer')">
+            <span class="role-icon">👨‍🏫</span>
+            <div class="role-name">Lecturer</div>
+            <div class="role-desc">Generate QR & manage records</div>
+          </div>
+        </div>
+
+        <button class="btn-next-step" onclick="goToStep(2)">Continue →</button>
+        <br><br>
+        <p class="login-link">Already have an account? <a href="login.html">Log in</a></p>
+      </div>
+
+      <!-- ═══ STEP 2 — PERSONAL INFO ═══ -->
+      <div class="step-panel" id="panel-2">
+        <div class="step-label">Step 2 of 3</div>
+        <h2>Your Details ✍️</h2>
+        <p class="subtitle">Fill in your personal information to create your account.</p>
+
+        <div class="register-form" id="form-step2">
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <div class="input-wrap">
+                <input type="text" id="firstName" placeholder="John" required/>
+                <svg class="field-icon" viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+              </div>
+              <span class="field-error" id="err-firstName">Please enter your first name.</span>
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <div class="input-wrap">
+                <input type="text" id="lastName" placeholder="Doe" required/>
+                <svg class="field-icon" viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+              </div>
+              <span class="field-error" id="err-lastName">Please enter your last name.</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="regEmail">Email Address</label>
+            <div class="input-wrap">
+              <input type="email" id="regEmail" placeholder="john.doe@university.edu" required/>
+              <svg class="field-icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            </div>
+            <span class="field-error" id="err-email">Please enter a valid email.</span>
+          </div>
+
+          <div class="form-group" id="matric-group">
+            <label for="matricNo">Matric Number</label>
+            <div class="input-wrap">
+              <input type="text" id="matricNo" placeholder="e.g. CSC/2021/001"/>
+              <svg class="field-icon" viewBox="0 0 24 24"><path d="M20 6h-2.18c.07-.44.18-.88.18-1.33C18 2.1 15.9 0 13.33 0c-1.4 0-2.67.6-3.55 1.56L9 3 8.22 1.56C7.34.6 6.07 0 4.67 0 2.1 0 0 2.1 0 4.67c0 .45.11.89.18 1.33H0v14h20V6zm-8.83 12H4V8h7.17v10zm8.83 0h-7.17V8H20v10z"/></svg>
+            </div>
+            <span class="field-error" id="err-matric">Please enter your matric number.</span>
+          </div>
+
+          <div class="form-group" id="dept-group">
+            <label for="department">Department</label>
+            <div class="input-wrap">
+              <select id="department">
+                <option value="">Select department</option>
+                <option>Computer Science</option>
+                <option>Electrical Engineering</option>
+                <option>Mechanical Engineering</option>
+                <option>Business Administration</option>
+                <option>Medicine & Surgery</option>
+                <option>Law</option>
+                <option>Accounting</option>
+                <option>Other</option>
+              </select>
+              <svg class="field-icon" viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>
+            </div>
+          </div>
+
+          <div class="form-group" id="phone-group">
+            <label for="phone">Phone Number</label>
+            <div class="input-wrap">
+              <input type="tel" id="phone" placeholder="+234 800 000 0000"/>
+              <svg class="field-icon" viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C9.39 21 3 14.61 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.24 1.01l-2.21 2.2z"/></svg>
+            </div>
+          </div>
+
+          <div class="form-nav">
+            <button class="btn-back-step" onclick="goToStep(1)">← Back</button>
+            <button class="btn-next-step" onclick="validateStep2()">Continue →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ STEP 3 — PASSWORD ═══ -->
+      <div class="step-panel" id="panel-3">
+        <div class="step-label">Step 3 of 3</div>
+        <h2>Secure Your Account 🔐</h2>
+        <p class="subtitle">Create a strong password to keep your account safe.</p>
+
+        <div class="register-form">
+          <div class="form-group">
+            <label for="newPassword">Password</label>
+            <div class="input-wrap">
+              <input type="password" id="newPassword" placeholder="Create a strong password" oninput="checkStrength(this.value)" required/>
+              <svg class="field-icon" viewBox="0 0 24 24"><path d="M12 1C8.676 1 6 3.676 6 7v1H4v15h16V8h-2V7c0-3.324-2.676-6-6-6zm0 2c2.276 0 4 1.724 4 4v1H8V7c0-2.276 1.724-4 4-4zm0 9a2 2 0 1 1 0 4 2 2 0 0 1 0-4z"/></svg>
+              <button type="button" class="eye-toggle" onclick="togglePwd('newPassword', 'eye1')">
+                <svg id="eye1" viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+              </button>
+            </div>
+            <div class="strength-bar">
+              <div class="strength-seg" id="seg1"></div>
+              <div class="strength-seg" id="seg2"></div>
+              <div class="strength-seg" id="seg3"></div>
+              <div class="strength-seg" id="seg4"></div>
+            </div>
+            <div class="strength-label" id="strengthLabel">Enter a password</div>
+            <span class="field-error" id="err-password">Password must be at least 6 characters.</span>
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <div class="input-wrap">
+              <input type="password" id="confirmPassword" placeholder="Repeat your password" required/>
+              <svg class="field-icon" viewBox="0 0 24 24"><path d="M12 1C8.676 1 6 3.676 6 7v1H4v15h16V8h-2V7c0-3.324-2.676-6-6-6zm0 2c2.276 0 4 1.724 4 4v1H8V7c0-2.276 1.724-4 4-4zm0 9a2 2 0 1 1 0 4 2 2 0 0 1 0-4z"/></svg>
+              <button type="button" class="eye-toggle" onclick="togglePwd('confirmPassword', 'eye2')">
+                <svg id="eye2" viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+              </button>
+            </div>
+            <span class="field-error" id="err-confirm">Passwords do not match.</span>
+          </div>
+
+          <label class="checkbox-wrap">
+            <input type="checkbox" id="agreeTerms"/>
+            I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+          </label>
+          <span class="field-error" id="err-terms">You must agree to the terms.</span>
+
+          <div class="form-error" id="formError">Something went wrong. Please try again.</div>
+
+          <div class="form-nav">
+            <button class="btn-back-step" onclick="goToStep(2)">← Back</button>
+            <button class="btn-register" id="registerBtn" onclick="handleRegister()">
+              <span class="btn-text">Create Account 🎉</span>
+              <div class="spinner"></div>
+            </button>
+          </div>
+
+          <p class="login-link">Already have an account? <a href="login.html">Log in</a></p>
+        </div>
+      </div>
+
+      <!-- ═══ SUCCESS ═══ -->
+      <div class="success-screen" id="successScreen">
+        <div class="success-icon">🎉</div>
+        <h2>Account Created!</h2>
+        <p id="successMsg">Welcome to SmartAttend! Your account has been created successfully. You can now log in and start using the system.</p>
+        <a href="login.html" class="btn-go-login">Go to Login →</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  let currentStep = 1;
+  let selectedRole = 'student';
+
+  /* ── ROLE SELECTION ── */
+  function selectRole(role) {
+    selectedRole = role;
+    document.getElementById('role-student').classList.toggle('selected', role === 'student');
+    document.getElementById('role-lecturer').classList.toggle('selected', role === 'lecturer');
+
+    // show/hide student-only fields
+    const isStudent = role === 'student';
+    document.getElementById('matric-group').style.display = isStudent ? 'flex' : 'none';
+  }
+
+  /* ── STEP NAVIGATION ── */
+  function goToStep(step) {
+    document.getElementById(`panel-${currentStep}`).classList.remove('active');
+    document.getElementById(`panel-${step}`).classList.add('active');
+    currentStep = step;
+    updateSidebar();
+    updateProgress();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function updateProgress() {
+    const pct = { 1: 33, 2: 66, 3: 100 };
+    document.getElementById('progressFill').style.width = pct[currentStep] + '%';
+  }
+
+  function updateSidebar() {
+    for (let i = 1; i <= 3; i++) {
+      const dot = document.getElementById(`dot-${i}`);
+      const row = document.getElementById(`sidebar-step-${i}`);
+      dot.classList.remove('active', 'done');
+      row.classList.remove('active-row');
+      if (i < currentStep) { dot.classList.add('done'); dot.innerHTML = '✓'; }
+      else if (i === currentStep) { dot.classList.add('active'); dot.innerHTML = i; row.classList.add('active-row'); }
+      else { dot.innerHTML = i; }
+    }
+  }
+
+  /* ── STEP 2 VALIDATION ── */
+  function validateStep2() {
+    let valid = true;
+
+    const firstName = document.getElementById('firstName').value.trim();
+    const lastName  = document.getElementById('lastName').value.trim();
+    const email     = document.getElementById('regEmail').value.trim();
+    const matric    = document.getElementById('matricNo').value.trim();
+
+    showErr('err-firstName', !firstName);
+    showErr('err-lastName', !lastName);
+    showErr('err-email', !email || !email.includes('@'));
+    if (selectedRole === 'student') showErr('err-matric', !matric);
+
+    if (!firstName || !lastName || !email || !email.includes('@')) valid = false;
+    if (selectedRole === 'student' && !matric) valid = false;
+
+    if (valid) goToStep(3);
+  }
+
+  function showErr(id, show) {
+    document.getElementById(id).classList.toggle('show', show);
+  }
+
+  /* ── PASSWORD STRENGTH ── */
+  function checkStrength(val) {
+    const segs = [document.getElementById('seg1'), document.getElementById('seg2'),
+                  document.getElementById('seg3'), document.getElementById('seg4')];
+    const label = document.getElementById('strengthLabel');
+
+    let score = 0;
+    if (val.length >= 6)  score++;
+    if (val.length >= 10) score++;
+    if (/[A-Z]/.test(val) && /[0-9]/.test(val)) score++;
+    if (/[^A-Za-z0-9]/.test(val)) score++;
+
+    const colors = ['#e53e3e', '#f6ad55', '#ecc94b', '#22c55e'];
+    const labels = ['Weak', 'Fair', 'Good', 'Strong 💪'];
+
+    segs.forEach((s, i) => {
+      s.style.background = i < score ? colors[score - 1] : '#e8f2ec';
+    });
+    label.textContent = val.length === 0 ? 'Enter a password' : labels[score - 1] || 'Weak';
+    label.style.color = val.length === 0 ? '#6b8f7a' : colors[score - 1];
+  }
+
+  /* ── PASSWORD TOGGLE ── */
+  function togglePwd(inputId, iconId) {
+    const input = document.getElementById(inputId);
+    input.type = input.type === 'password' ? 'text' : 'password';
+  }
+
+  /* ── FINAL REGISTRATION ── */
+  function handleRegister() {
+    const password = document.getElementById('newPassword').value;
+    const confirm  = document.getElementById('confirmPassword').value;
+    const terms    = document.getElementById('agreeTerms').checked;
+
+    let valid = true;
+    showErr('err-password', password.length < 6);
+    showErr('err-confirm', password !== confirm);
+    showErr('err-terms', !terms);
+
+    if (password.length < 6 || password !== confirm || !terms) valid = false;
+    if (!valid) return;
+
+    const btn = document.getElementById('registerBtn');
+    btn.classList.add('loading');
+
+    setTimeout(() => {
+      btn.classList.remove('loading');
+
+      // Hide all panels, show success
+      document.getElementById(`panel-${currentStep}`).classList.remove('active');
+      document.getElementById('progressFill').style.width = '100%';
+
+      const name = document.getElementById('firstName').value;
+      document.getElementById('successMsg').textContent =
+        `Welcome, ${name}! Your ${selectedRole} account has been created. You can now log in and start using SmartAttend.`;
+
+      document.getElementById('successScreen').classList.add('show');
+
+      // Update sidebar all done
+      for (let i = 1; i <= 3; i++) {
+        const dot = document.getElementById(`dot-${i}`);
+        dot.classList.remove('active'); dot.classList.add('done'); dot.innerHTML = '✓';
+        document.getElementById(`sidebar-step-${i}`).classList.remove('active-row');
+      }
+    }, 1800);
+  }
+
+  // Init — hide matric for lecturer by default if needed
+  document.getElementById('matric-group').style.display = 'flex';
+</script>
+</body>
+</html>
